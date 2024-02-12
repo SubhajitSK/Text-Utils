@@ -94,7 +94,11 @@ export default function TextForm() {
           <p>{readingTime.toFixed(2)} minutes to read</p>
           <div>
             <p className="my-2 text-2xl font-medium">Preview</p>
-            <p>{text}</p>
+            <p>
+              {text.length > 0
+                ? text
+                : "Enter something in the textbox above to preview here"}
+            </p>
           </div>
         </div>
       </div>

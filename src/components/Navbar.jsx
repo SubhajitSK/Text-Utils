@@ -1,8 +1,20 @@
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Navbar(props) {
   const [toggleMode, settoggleMode] = useState("Switch to Dark");
+
+  useEffect(() => {
+    // Check user's preference for dark mode
+    const prefersDarkMode =
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    if (prefersDarkMode) {
+      settoggleMode("Switch to light");
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
 
   const handleDarkMode = () => {
     if (toggleMode === "Switch to Dark") {
@@ -16,7 +28,7 @@ export default function Navbar(props) {
 
   return (
     <div>
-      <nav className="bg-white border-gray-200 dark:bg-gray-900">
+      <nav className="bg-slate-100 border-gray-200 dark:bg-gray-900">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <a
             href="#"
@@ -27,7 +39,7 @@ export default function Navbar(props) {
             </span>
           </a>
           <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
                 <a
                   href="#"
