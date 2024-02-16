@@ -1,31 +1,6 @@
-import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-export default function Navbar(props) {
-  const [toggleMode, settoggleMode] = useState("Switch to Dark");
-
-  useEffect(() => {
-    // Check user's preference for dark mode
-    const prefersDarkMode =
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-    if (prefersDarkMode) {
-      settoggleMode("Switch to light");
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
-
-  const handleDarkMode = () => {
-    if (toggleMode === "Switch to Dark") {
-      settoggleMode("Switch to light");
-      document.documentElement.classList.add("dark");
-    } else {
-      settoggleMode("Switch to Dark");
-      document.documentElement.classList.remove("dark");
-    }
-  };
-
+export default function Navbar({ handleDarkMode, toggleMode }) {
   return (
     <div>
       <nav className="bg-slate-100 border-gray-200 dark:bg-gray-900">
@@ -35,7 +10,7 @@ export default function Navbar(props) {
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              {props.title}
+              Text Utils
             </span>
           </a>
           <div className="hidden w-full md:block md:w-auto" id="navbar-default">
@@ -86,7 +61,6 @@ export default function Navbar(props) {
                   type="checkbox"
                   value=""
                   className="sr-only peer"
-                  // defaultChecked
                   onClick={handleDarkMode}
                 />
                 <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none  rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
@@ -101,11 +75,3 @@ export default function Navbar(props) {
     </div>
   );
 }
-
-Navbar.propTypes = {
-  title: PropTypes.string.isRequired,
-};
-
-Navbar.defaultProps = {
-  title: "Set title",
-};

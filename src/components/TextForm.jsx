@@ -1,30 +1,39 @@
 import React, { useState } from "react";
 
-export default function TextForm() {
+export default function TextForm(props) {
   const [text, setText] = useState("");
 
-  const handleUpperCaseClick = () => {
-    setText(text.toUpperCase());
-  };
-  const handleLowerCaseClick = () => {
-    setText(text.toLowerCase());
-  };
   const handleOnChange = (event) => {
     setText(event.target.value);
   };
+
+  const handleUpperCaseClick = () => {
+    setText(text.toUpperCase());
+    props.showAlert("Converted to uppercase", "success");
+  };
+
+  const handleLowerCaseClick = () => {
+    setText(text.toLowerCase());
+    props.showAlert("Converted to lowercase", "success");
+  };
+
   const handleClearClick = () => {
     setText("");
+    props.showAlert("Text cleared", "success");
   };
+
   const handleCopyClick = () => {
     var copyText = document.getElementById("message");
     copyText.select();
     document.execCommand("copy");
     window.getSelection().removeAllRanges();
+    props.showAlert("Text copied to clipboard", "success");
   };
 
   const handleExtraSpaces = () => {
     let newText = text.split(/[ ]+/);
     setText(newText.join(" "));
+    props.showAlert("Extra spaces removed", "success");
   };
 
   const calculateReadingTime = () => {
