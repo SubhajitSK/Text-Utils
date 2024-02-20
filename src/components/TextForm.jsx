@@ -1,7 +1,18 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
 export default function TextForm(props) {
   const [text, setText] = useState("");
+
+  const [isDisable, setisDisable] = useState(false);
+
+  useEffect(() => {
+    if (text.length === 0) {
+      setisDisable(true);
+      console.log("disabled");
+    } else {
+      setisDisable(false);
+      console.log("enabled");
+    }
+  }, [text]);
 
   const handleOnChange = (event) => {
     setText(event.target.value);
@@ -62,36 +73,41 @@ export default function TextForm(props) {
           ></textarea>
           <button
             type="button"
-            className="text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 font-medium rounded-lg text-sm px-3 py-2 me-2 mt-2"
+            className="text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 font-medium rounded-lg text-sm px-3 py-2 me-2 mt-2 disabled:opacity-85 disabled:hover:bg-blue-600 disabled:cursor-not-allowed"
             onClick={handleUpperCaseClick}
+            disabled={isDisable}
           >
             Convert to uppercase
           </button>
           <button
             type="button"
-            className="text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 font-medium rounded-lg text-sm px-3 py-2 me-2 mt-2"
+            className="text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 font-medium rounded-lg text-sm px-3 py-2 me-2 mt-2 disabled:opacity-85 disabled:hover:bg-blue-600 disabled:cursor-not-allowed"
             onClick={handleLowerCaseClick}
+            disabled={isDisable}
           >
             Convert to lowercase
           </button>
           <button
             type="button"
-            className="text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 font-medium rounded-lg text-sm px-3 py-2 me-2 mt-2"
+            className="text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 font-medium rounded-lg text-sm px-3 py-2 me-2 mt-2 disabled:opacity-85 disabled:hover:bg-blue-600 disabled:cursor-not-allowed"
             onClick={handleClearClick}
+            disabled={isDisable}
           >
             Clear Text
           </button>
           <button
             type="button"
-            className="text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 font-medium rounded-lg text-sm px-3 py-2 me-2 mt-2"
+            className="text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 font-medium rounded-lg text-sm px-3 py-2 me-2 mt-2 disabled:opacity-85 disabled:hover:bg-blue-600 disabled:cursor-not-allowed"
             onClick={handleCopyClick}
+            disabled={isDisable}
           >
             Copy Text
           </button>
           <button
             type="button"
-            className="text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 font-medium rounded-lg text-sm px-3 py-2 me-2 mt-2"
+            className="text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 font-medium rounded-lg text-sm px-3 py-2 me-2 mt-2 disabled:opacity-85 disabled:hover:bg-blue-600 disabled:cursor-not-allowed"
             onClick={handleExtraSpaces}
+            disabled={isDisable}
           >
             Remove Extra Spaces
           </button>
@@ -106,7 +122,7 @@ export default function TextForm(props) {
             <p>
               {text.length > 0
                 ? text
-                : "Enter something in the textbox above to preview here"}
+                : "Nothing to preview, write something to preview it here."}
             </p>
           </div>
         </div>

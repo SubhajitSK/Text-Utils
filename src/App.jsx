@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// App.js
+import React, { useEffect, useState } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 import About from "./components/About";
@@ -7,7 +8,13 @@ import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
 
 function App() {
-  const [toggleMode, setToggleMode] = useState("Switch to Dark");
+  const [toggleMode, setToggleMode] = useState(
+    localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ? "Switch to Light"
+      : "Switch to Dark"
+  );
   const [alert, setAlert] = useState(null);
 
   const showAlert = (message, type) => {
@@ -19,22 +26,32 @@ function App() {
 
   const handleDarkMode = () => {
     if (toggleMode === "Switch to Dark") {
-      setToggleMode("Switch to light");
+      setToggleMode("Switch to Light");
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
       showAlert("Dark mode has been enabled", "success");
-      document.title = "TextUtils - Dark Mode";
     } else {
       setToggleMode("Switch to Dark");
       document.documentElement.classList.remove("dark");
-      showAlert("Light mode has been enabled", "success");
       localStorage.setItem("theme", "light");
-      document.title = "TextUtils - Light Mode";
+      showAlert("Light mode has been enabled", "success");
     }
   };
 
+  useEffect(() => {
+    if (
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
   return (
-    <Router>
+    <Router basename="/Text-Utils/">
       <>
         <Navbar handleDarkMode={handleDarkMode} toggleMode={toggleMode} />
         <Alert alert={alert} />

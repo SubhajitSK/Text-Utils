@@ -3,6 +3,24 @@ import React, { useState } from "react";
 export default function About() {
   const [activeAccordion, setActiveAccordion] = useState(null);
 
+  const aboutData = [
+    {
+      question: "What are Text Utils?",
+      answer:
+        "Text Utils are a set of tools designed to manipulate and analyze text data. These utilities can perform various operations on textual content, making it easier for developers to handle and process strings.",
+    },
+    {
+      question: "What functionalities do Text Utils provide?",
+      answer:
+        "Text Utils offer a range of functionalities such as string manipulation, character count, word count, case conversion (uppercase/lowercase), and more. These tools are useful for tasks like formatting, cleaning, and extracting information from text.",
+    },
+    {
+      question: "How can Text Utils be utilized in development?",
+      answer:
+        "In development, Text Utils can be integrated into applications and projects to enhance the processing and presentation of textual data. Developers can leverage these utilities to streamline text-related operations and improve the overall user experience.",
+    },
+  ];
+
   const toggleAccordion = (index) => {
     setActiveAccordion(activeAccordion === index ? null : index);
   };
@@ -12,24 +30,7 @@ export default function About() {
       <div className="flex justify-center">
         <div className="w-1/2 ">
           <h1 className="text-3xl font-bold dark:text-white mt-10">About Us</h1>
-          {[
-            {
-              question: "What is Flowbite?",
-              answer:
-                "Flowbite is an open-source library of interactive components built on top of Tailwind CSS including buttons, dropdowns, modals, navbars, and more.",
-            },
-            {
-              question: "Is there a Figma file available?",
-              answer:
-                "Flowbite is first conceptualized and designed using the Figma software so everything you see in the library has a design equivalent in our Figma file.",
-            },
-            {
-              question:
-                "What are the differences between Flowbite and Tailwind UI?",
-              answer:
-                "The main difference is that the core components from Flowbite are open source under the MIT license, whereas Tailwind UI is a paid product.",
-            },
-          ].map(({ question, answer }, index) => (
+          {aboutData.map(({ question, answer }, index) => (
             <div key={index} className="py-2">
               <button
                 onClick={() => toggleAccordion(index)}
